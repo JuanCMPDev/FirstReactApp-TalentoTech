@@ -1,16 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Counter = () => {
+const Counter = ({min, max}) => {
 
     const [count, setCount] = useState(0)
 
+    useEffect(() => {
+        if (count < min) {
+            setCount(min);
+        } else if (count > max) {
+            setCount(max);
+        }
+    }, [min, max]);
+
     const handleClick = (operation) => {
         if(operation === 'increment'){
-            count < 100 && setCount(count + 1);
+            count < max && setCount(count + 1);
         } else if (operation === 'reset'){
-            setCount(0);
+            setCount(min);
         } else if (operation === 'decrement'){
-            count > 0 && setCount(count - 1);
+            count > min && setCount(count - 1);
         } else {
             return alert("la operacion no esta contemplada")
         };
